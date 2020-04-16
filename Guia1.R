@@ -53,12 +53,49 @@ ejercicio3<-function(){
 }
 
 ##Segun la sugerencia del apunte de Bianco y Martinez deberia haber una relacion
-##de tipo np<=20 de manera que tomando n = 30 y p = 0.5 bastaria y np = 5
-
-ejercicio4<-function(){
-  par(mfrow=c(1,2))
-  graficarPoisson(5)
-  graficarBinomial(30,0.5)
+##de tipo np<=20 de manera que tomando n = 30 y p = 0.167 bastaria y np = 5
+superponerBarPlot<-function(){
+  
 }
 
+ejercicio4<-function(){
+  par(mfrow=c(2,2))
+  graficarPoisson(5)
+  graficarBinomial(30,0.167)
+  
+}
 
+graficarGamma<-function(lambda,alfa){
+  curve(dgamma(x,shape = alfa,scale = lambda), xlim = c(0,20))
+}
+
+ejercicio5A<-function(){
+  par(mfrow=c(3,3))
+  for (lambda in (1:9)) {
+    graficarGamma(lambda,1)
+  }
+}
+ejercicio5B<-function(){
+  par(mfrow=c(3,3))
+  for (alfa in (1:9))ejer {
+    graficarGamma(1,alfa)
+  }
+}
+
+cauchy<-function(x){
+  return(1/(pi*(1+x^2)))
+}
+  
+
+ejercicio7A<-function(){
+  par(mfrow=c(1,1))
+  curve(cauchy(x), from = -20 ,to =20) 
+}
+terminoEsperanzaCauchy<-function(x){
+  return(x*cauchy(x))
+}
+
+ejercicio7B<-function(){
+  return(integrate(terminoEsperanzaCauchy,lower = -Inf, upper = Inf))
+}
+##Da 0 pero esta mal!!!.
