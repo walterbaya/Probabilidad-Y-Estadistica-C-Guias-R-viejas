@@ -1,0 +1,140 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+## Ejercicio 1 
+
+Luego de realizar los calculos llegue a que la distribución debería ser de la forma
+
+$Y = (b-a)U + a$
+
+```{r}
+n <- c(100,1000,50000)
+a <- c(−1.96,-2,0)  
+b <- c( 1.96,1,2.34)
+
+# Genera una muestra normal con los valores dados 
+
+aproximacion_normal <- function(a,b,n) {
+  uniformSample<-runif(n,0,1)
+  normalSample <- vector()
+  for (v in uniformSample) {
+      normalSample<-c(normalSample, (2.71^((-1*((b-a)*v + a)^2)/2))/sqrt(2*(3.14)))
+  }
+  result <- ((b-a)*sum(normalSample))/n
+  return(result)
+}
+    aprox1 <- aproximacion_normal(a[1],b[1],n[1])
+    print(aprox1)
+  
+    aprox2 <- aproximacion_normal(a[2],b[2],n[2])
+    print(aprox2)
+    
+    aprox3 <- aproximacion_normal(a[3],b[3],n[3])
+    print(aprox3)
+
+
+```
+Una vez realizados los calculos comparamos con los datos de la tabla normal.
+
+0.9632223  en la tabla figura 0.9500
+0.8316664  en la tabla figura 0.8185
+0.490986   en la tabla figura 0.4904
+
+La similitud es cada vez mayor a medida que el n crece, lo cual tiene sentido y acompaña lo que dice la ley de los grandes números.
+
+
+## Ejercicio 2
+
+Realizamos un histograma con promedios de dos variables aleatorias de tipo uniforme.
+
+```{r}
+
+vec<-vector()
+
+for (i in c(1:1000)) {
+  x1<-runif(1,0,1)
+  x2<-runif(1,0,1)
+  
+  promedio <- (x1+x2)/2
+  
+  vec<-c(vec,promedio)
+}
+
+hist(vec)
+
+
+```
+
+
+
+Generamos muestras de 5 de forma manual.
+
+```{r}
+vec<-vector()
+
+for (i in c(1:1000)) {
+  x1<-runif(1,0,1)
+  x2<-runif(1,0,1)
+  x3<-runif(1,0,1)
+  x4<-runif(1,0,1)
+  x5<-runif(1,0,1)
+  
+  promedio <- (x1+x2+x3+x4+x5)/5
+  
+  vec<-c(vec,promedio)
+}
+
+hist(vec)
+```
+
+Ahora trabajamos con 30 variables aleatorias uniformes
+
+```{r}
+
+muestraNormal<-vector()
+
+for (i in c(1:1000)) {
+ 
+  muestraUniforme<-vector()
+  
+  for (i in c(1:30)) {
+  muestraUniforme<-c(muestraUniforme,  runif(1,0,1))
+  }
+  
+  media<-mean(muestraUniforme)
+  muestraNormal<-c(muestraNormal,media)
+}
+
+hist(muestraNormal)
+
+
+
+
+```
+
+La misma prueba pero ahora tomando promedios de 200 variables uniformes.
+
+
+```{r}
+muestraNormal<-vector()
+
+for (i in c(1:1000)) {
+ 
+  muestraUniforme<-vector()
+  
+  for (i in c(1:200)) {
+  muestraUniforme<-c(muestraUniforme,  runif(1,0,1))
+  }
+  
+  media<-mean(muestraUniforme)
+  muestraNormal<-c(muestraNormal,media)
+}
+
+hist(muestraNormal)
+```
+
+
+
+
