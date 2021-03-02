@@ -1,0 +1,63 @@
+---
+title: "Práctica 6"
+output:
+  html_document:
+    df_print: paged
+---
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+
+Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Ctrl+Shift+Enter*. 
+
+```{r}
+plot(cars)
+```
+
+#Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by #pressing *Ctrl+Alt+I*.
+
+#When you save the notebook, an HTML file containing the code and output will be #saved alongside it (click the *Preview* button or press *Ctrl+Shift+K* to #preview the HTML file).
+
+#The preview shows you a rendered HTML copy of the contents of the editor. #Consequently, unlike *Knit*, *Preview* does not run any R code chunks. Instead, #the output of the chunk when it was last run in the editor is displayed.*/
+
+#----------------------------------------------------------------------------
+
+Ejercicio 5
+
+```{r}
+ratas <- read.table("hierro.txt", header = TRUE)
+boxplot(ratas)
+#Permite que R use el vector de ratas como si hubieran dos objetos columna
+#cada uno con el nombre correspondiente al encabezado
+#luego podemos usar esos datos para trabajar con el qqnorm
+attach(ratas)
+par(mfrow=c(1,2))
+qqnorm(Fe3, main ="Normal Q-Q Plot Fe3")
+qqnorm(Fe2, main ="Normal Q-Q Plot Fe2")
+```
+
+Estos datos no parecen corresponder con una distribución normal, debido a que
+el boxplot estaría indicando una asimetría a derecha en ambos casos, tanto en el analisis con boxplot como en el analisis con qq-norm.
+
+```{r}
+lnFe3<-log(Fe3)
+lnFe2<-log(Fe2)
+print(lnFe3)
+print(lnFe2)
+boxplot(lnFe3)
+boxplot(lnFe2)
+par(mfrow=c(1,2))
+qqnorm(lnFe2)
+qqnorm(lnFe3)
+```
+
+Vemos como luego de aplicar logaritmo a cada uno de los datos, obtenemos una
+muestra nueva que tiene distribucion normal al parecer, debido a que tanto su
+qqnorm como su boxplot parecen indicar esto, si bien no es perfecto, en el caso
+de Fe3 se ve como el grafico del boxplot se acerca bastante al de una normal, 
+observando que la mediana esta debajo del centro.
+Viendo el gráfico de Fe2 notamos que se mantiene un poco la asimetría a derecha
+los bigotes superiores siguen siendo mas grandes que los inferiores y la mediana
+sigue estando debajo del centro, parece que los valores suelen tener tendencia a ser ligeramente mas chicos que la mediana, también se observa en general para 
+ambos datos que hay valores bastante pequeños en menor cantidad y valores poco
+grandes en igual cantidad.
+
